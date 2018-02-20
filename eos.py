@@ -11,12 +11,14 @@ import json
 
 current_price = 0
 
+coin_type = input('please input coin, just like eosusdt or eoseth: \n')
+
 def parseData(data):
     if ('status' in data and data['status'] == 'ok'):
         print('subscribe success: ', data['subbed'])
     else:
         current_price = data['tick']['open'] // 1
-        print('open price: %.2f usdt \t\t\t\t close price: %.2f usdt' %
+        print('open price: %f usdt \t\t\t\t close price: %f usdt' %
               (data['tick']['open'], data['tick']['open'])
              )
 
@@ -38,7 +40,7 @@ if __name__ == '__main__':
             time.sleep(5)
 
     # 订阅 KLine 数据
-    tradeStr="""{"sub": "market.eosusdt.kline.1min","id": "id10"}"""
+    tradeStr = json.dumps({"sub": "market." + coin_type + ".kline.1min", "id": "id10"})
 
     # 请求 KLine 数据
     # tradeStr="""{"req": "market.ethusdt.kline.1min","id": "id10", "from": 1513391453, "to": 1513392453}"""
