@@ -8,6 +8,7 @@ from websocket import create_connection
 import gzip
 import time
 import json
+import os
 
 current_price = 0
 
@@ -26,9 +27,11 @@ def parseData(data):
             current_price = data['tick']['open'] // 1
 
         if data['tick']['open'] // 1 < current_price:
+            os.system("say your eos has lower price" + data['tick']['open'] // 1 + 'dollars')
             print("========warning====== eos: %d" % data['tick']['open'] // 1)
         elif data['tick']['open'] // 1 > current_price:
             print("========congratulations!!!====== eos: %d" % data['tick']['open'] // 1)
+            os.system("say your eos has higher price" + data['tick']['open'] // 1 + 'dollars')
 
 if __name__ == '__main__':
     while(1):# 建立 websocket 连接
